@@ -3,7 +3,7 @@
 namespace TwigWrapperProvider\Processors;
 
 use DOMDocument;
-use DOMNode;
+use DOMElement;
 use PageSpecificCss\Twig\Extension as CriticalCssExtension;
 use Twig_Environment;
 use Twig_Error_Runtime;
@@ -35,18 +35,14 @@ class CriticalCssProcessor implements PostProcessorInterface
             return $rawHtml;
         }
 
-        $document = new DOMDocument('1.0', 'UTF-8');
+        $document = new DOMDocument();
         $internalErrors = libxml_use_internal_errors(true);
         $document->loadHTML(mb_convert_encoding($rawHtml, 'HTML-ENTITIES', 'UTF-8'));
         libxml_use_internal_errors($internalErrors);
         $document->formatOutput = true;
 
-        $headStyle = new DOMNode();
-        $headStyle->textContent = "<style type='text/css'>{$criticalCss}</style>";
-
+        $headStyle = new DOMElement('style', $criticalCss);
         $document->getElementsByTagName('head')->item(0)->appendChild($headStyle);
-
-
-        return $document->textContent;
+        return $document->saveHTML();
     }
 }
