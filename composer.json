@@ -1,0 +1,24 @@
+{
+  "name": "jandc/twig-wrapper-provider",
+  "type": "library",
+  "description": "Silex provider which wraps twig rendering and allows for post processing",
+  "homepage": "https://github.com/JanDC/twig-wrapper-provider",
+  "license": "ISC",
+  "authors": [
+    {
+      "name": "Jan Decavele",
+      "email": "jan.decavele@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "jandc/page-specific-css": "dev-master",
+    "silex/silex": ">=1.2,<2.0",
+    "twig/twig": "^1.26"
+  },
+  "autoload": {
+    "psr-4": {
+      "TwigWrapperProvider\\": "src/"
+    }
+  }
+}
