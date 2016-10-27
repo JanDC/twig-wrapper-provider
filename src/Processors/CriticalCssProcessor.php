@@ -34,15 +34,19 @@ class CriticalCssProcessor implements PostProcessorInterface
             error_log($tew->getMessage());
             return $rawHtml;
         }
+        try {
+            $document = new DOMDocument();
+            $internalErrors = libxml_use_internal_errors(true);
+            $document->loadHTML(mb_convert_encoding($rawHtml, 'HTML-ENTITIES', 'UTF-8'));
+            libxml_use_internal_errors($internalErrors);
+            $document->formatOutput = true;
 
-        $document = new DOMDocument();
-        $internalErrors = libxml_use_internal_errors(true);
-        $document->loadHTML(mb_convert_encoding($rawHtml, 'HTML-ENTITIES', 'UTF-8'));
-        libxml_use_internal_errors($internalErrors);
-        $document->formatOutput = true;
-
-        $headStyle = new DOMElement('style', $criticalCss);
-        $document->getElementsByTagName('head')->item(0)->appendChild($headStyle);
-        return $document->saveHTML();
+            $headStyle = new DOMElement('style', $criticalCss);
+            $document->getElementsByTagName('head')->item(0)->appendChild($headStyle);
+            return $document->saveHTML();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return $rawHtml;
+        }
     }
 }
