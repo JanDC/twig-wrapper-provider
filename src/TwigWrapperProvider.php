@@ -8,6 +8,17 @@ use TwigWrapperProvider\Service\TwigWrapper;
 
 class TwigWrapperProvider implements ServiceProviderInterface
 {
+    /** @var string */
+    private $twigIdentifier;
+
+    /** @var array */
+    private $postProcessors;
+
+    public function __construct($twigIdentifier = 'twig', array $postProcessors = [])
+    {
+        $this->twigIdentifier = $twigIdentifier;
+        $this->postProcessors = $postProcessors;
+    }
 
 
     /**
@@ -20,8 +31,7 @@ class TwigWrapperProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['twigwrapper'] = new TwigWrapper($app);
-
+        // Nothing to do here
     }
 
     /**
@@ -35,6 +45,6 @@ class TwigWrapperProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
-        $app['twigwrapper'] = new TwigWrapper($app);
+        $app['twigwrapper'] = new TwigWrapper($app, $this->twigIdentifier, $this->postProcessors);
     }
 }
