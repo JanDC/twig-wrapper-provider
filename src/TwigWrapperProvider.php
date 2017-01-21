@@ -45,6 +45,6 @@ class TwigWrapperProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
-        $app['twigwrapper'] = new TwigWrapper($app, $this->twigIdentifier, $this->postProcessors);
+        $app['twigwrapper'] = new TwigWrapper($app[$this->twigIdentifier], $this->postProcessors);
     }
 }
