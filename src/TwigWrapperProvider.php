@@ -4,7 +4,7 @@ namespace TwigWrapperProvider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use TwigWrapperProvider\Service\TwigWrapper;
+use TwigWrapper\TwigWrapper;
 
 class TwigWrapperProvider implements ServiceProviderInterface
 {

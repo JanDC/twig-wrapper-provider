@@ -13,7 +13,7 @@
   ],
   "require": {
     "silex/silex": ">=1.2,<2.0",
-    "twig/twig": "^1.26"
+    "jandc/twig-wrapper": "^0.2"
   },
   "autoload": {
     "psr-4": {
